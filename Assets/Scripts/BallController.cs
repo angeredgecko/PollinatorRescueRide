@@ -18,10 +18,10 @@ public class BallController : MonoBehaviour {
         bool mouseDown = false;
         if (hold)
         {
-            mouseDown = Input.GetMouseButton(0);
+			mouseDown = Input.GetMouseButton(0) || Input.GetButton("Jump");
         } else
         {
-            mouseDown = Input.GetMouseButtonDown(0);
+            mouseDown = Input.GetMouseButtonDown(0) || Input.GetButtonDown("Jump");
         }
 		if (mouseDown)
         {
