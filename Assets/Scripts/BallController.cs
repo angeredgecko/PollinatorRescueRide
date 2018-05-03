@@ -8,6 +8,11 @@ public class BallController : MonoBehaviour {
     public bool hold = false;
     public Rigidbody2D rb;
 
+    public float distTraveled = 0.0f;
+
+    public float score = 0.0f;
+    public float missedInsects = 0.0f;
+
 	// Use this for initialization
 	void Start () {
 
@@ -15,19 +20,33 @@ public class BallController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        bool mouseDown = false;
-        if (hold)
-        {
-			mouseDown = Input.GetMouseButton(0) || Input.GetButton("Jump");
-        } else
-        {
-            mouseDown = Input.GetMouseButtonDown(0) || Input.GetButtonDown("Jump");
-        }
+        bool mouseDown = getClick(hold);
 		if (mouseDown)
         {
             rb.velocity = new Vector2(0, sensitivity);
         }
+        Debug.Log(distTraveled);
 	}
+
+    bool getClick(bool hold)
+    {
+        if (hold)
+        {
+            return Input.GetMouseButton(0) || Input.GetButton("Jump");
+        }
+        else
+        {
+            return Input.GetMouseButtonDown(0) || Input.GetButtonDown("Jump");
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Bee")
+        {
+            score += 1;
+        }
+    }
 
     private void FixedUpdate()
     {

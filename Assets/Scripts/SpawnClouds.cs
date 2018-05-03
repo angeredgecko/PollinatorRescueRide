@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnClouds : MonoBehaviour {
 
     public GameObject cloudPreFab;
-    Dictionary<GameObject, float> clouds = new Dictionary<GameObject, float>();
+    Dictionary<GameObject, float[]> clouds = new Dictionary<GameObject, float[]>();
     public int maxclouds = 5;
     public float cloudSpeed = 1.0f;
     public float minWaitTime = 0.5f;
@@ -30,23 +30,24 @@ public class SpawnClouds : MonoBehaviour {
         float timeSinceLastcloud = Time.time - lastcloudTime;
         if (clouds.Count < maxclouds && !hasSpawned && timeSinceLastcloud - nextRandom > minWaitTime)
         {
-            GameObject newCloud = Instantiate(cloudPreFab, new Vector3(11f, yPos, depth), Quaternion.identity);
+            float randYOffset = Random.Range(-1, 1);
+            GameObject newCloud = Instantiate(cloudPreFab, new Vector3(11f, yPos + randYOffset, depth), Quaternion.identity);
             newCloud.transform.localScale = new Vector3(cloudSize*Random.Range(.8f, 1.2f), cloudSize * Random.Range(.8f, 1.2f), cloudSize * Random.Range(.8f, 1.2f));
-            clouds.Add(newCloud, 0);
+            clouds.Add(newCloud, new float[] { 0, randYOffset });
             hasSpawned = true;
             lastcloudTime = Time.time;
             nextRandom = Random.value * 2;
         }
         foreach (GameObject cloud in new List<GameObject>(clouds.Keys))
         {
-            clouds[cloud] += Time.deltaTime;
+            clouds[cloud][0] += Time.deltaTime;
             if (cloud.transform.position.x < -11f)
             {
                 clouds.Remove(cloud);
                 Destroy(cloud);
                 break;
             }
-            cloud.transform.position = new Vector3(cloud.transform.position.x - (Time.deltaTime * cloudSpeed), .15f * Mathf.Sin(1.4f*clouds[cloud]) + yPos, depth);
+            cloud.transform.position = new Vector3(cloud.transform.position.x - (Time.deltaTime * cloudSpeed), .15f * Mathf.Sin(1.4f*clouds[cloud][0]) + yPos+clouds[cloud][1], depth);
         }
     }
 }
