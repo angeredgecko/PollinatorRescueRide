@@ -10,6 +10,7 @@ public class BeeController : MonoBehaviour {
     BallController bc;
 
     bool playedEffect = false;
+    bool hit = false;
 
     float initialY;
     float time;
@@ -29,12 +30,19 @@ public class BeeController : MonoBehaviour {
         time += Time.deltaTime;
         transform.position = new Vector3(transform.position.x - (7.4f) * Time.deltaTime, .25f * Mathf.Sin(4f * time) + initialY, transform.position.z);
 
-        if (transform.position.x < -11)
+        if (transform.position.x < -11 & !hit)
         {
             bc.missedInsects += 1;
+            Debug.Log(-11);
             Destroy(gameObject);
         }
-	}
+
+        if (hit && !ps.isPlaying)
+        {
+            Debug.Log("effect");
+            Destroy(gameObject);
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -43,11 +51,7 @@ public class BeeController : MonoBehaviour {
             // Stops GameObject2 moving
             sr.enabled = false;
             ps.Play();
-            playedEffect = true;
-        }
-        if (playedEffect == true && !ps.isPlaying)
-        {
-            Destroy(gameObject);
+            hit = true;
         }
     }
 }

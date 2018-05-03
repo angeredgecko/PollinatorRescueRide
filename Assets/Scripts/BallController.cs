@@ -25,7 +25,6 @@ public class BallController : MonoBehaviour {
         {
             rb.velocity = new Vector2(0, sensitivity);
         }
-        Debug.Log(distTraveled);
 	}
 
     bool getClick(bool hold)
