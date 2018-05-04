@@ -28,7 +28,7 @@ public class BeeController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         time += Time.deltaTime;
-        transform.position = new Vector3(transform.position.x - (7.4f) * Time.deltaTime, .25f * Mathf.Sin(4f * time) + initialY, transform.position.z);
+        transform.position = new Vector3(transform.position.x - GameData.scrollSpeed * (7.4f/3f) * Time.deltaTime, .25f * Mathf.Sin(4f * time) + initialY, transform.position.z);
 
         if (transform.position.x < -11 & !hit)
         {

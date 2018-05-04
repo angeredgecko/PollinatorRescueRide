@@ -9,8 +9,14 @@ public class BackgroundController : MonoBehaviour {
     GameObject ball;
     BallController bControl;
 
-    // Use this for initialization
-    void Start () {
+	// Use this for initialization
+
+	private void Awake()
+	{
+		GameData.scrollSpeed = scrollSpeed;
+	}
+
+	void Start () {
         m_Material = GetComponent<Renderer>().material;
         ball = GameObject.Find("Ball");
         bControl = ball.GetComponent<BallController>();
@@ -18,7 +24,7 @@ public class BackgroundController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float offset = Time.deltaTime * scrollSpeed;
+        float offset = Time.deltaTime * GameData.scrollSpeed;
         bControl.distTraveled += offset * (7.4f/3f);
         m_Material.mainTextureOffset = new Vector2(m_Material.mainTextureOffset.x+offset, 0);
 	}

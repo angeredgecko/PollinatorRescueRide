@@ -44,6 +44,7 @@ public class BallController : MonoBehaviour {
                 float maxTime = 1.5f;
                 Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime/maxTime);
                 transform.position = pos;
+				rb.isKinematic = true;
             }
         }
 	}

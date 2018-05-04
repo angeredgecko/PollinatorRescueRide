@@ -41,7 +41,7 @@ public class SpawnTrees : MonoBehaviour {
                 Destroy(tree);
             }
             tree.transform.localScale = new Vector3(treeSize, treeSize, treeSize);
-            tree.transform.position = new Vector3(tree.transform.position.x - (Time.deltaTime * treeSpeed), yPos, depth);
+            tree.transform.position = new Vector3(tree.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (treeSpeed / 3f)), yPos, depth);
         }
 	}
 }

@@ -47,7 +47,7 @@ public class SpawnClouds : MonoBehaviour {
                 Destroy(cloud);
                 break;
             }
-            cloud.transform.position = new Vector3(cloud.transform.position.x - (Time.deltaTime * cloudSpeed), .15f * Mathf.Sin(1.4f*clouds[cloud][0]) + yPos+clouds[cloud][1], depth);
+            cloud.transform.position = new Vector3(cloud.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (cloudSpeed / 3f)), .15f * Mathf.Sin(1.4f*clouds[cloud][0]) + yPos+clouds[cloud][1], depth);
         }
     }
 }
