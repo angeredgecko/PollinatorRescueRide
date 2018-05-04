@@ -53,7 +53,7 @@ public class PesticideController : MonoBehaviour {
 			{
 				float currentTime = Time.time;
 				float deltaTime = currentTime - timeDie;
-				float maxTime = 1.5f;
+				float maxTime = .75f;
 				Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime / maxTime);
 				transform.position = pos;
 			}

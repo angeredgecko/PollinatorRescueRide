@@ -41,7 +41,7 @@ public class BallController : MonoBehaviour {
             {
                 float currentTime = Time.time;
                 float deltaTime = currentTime - timeDie;
-                float maxTime = 1.5f;
+                float maxTime = .75f;
                 Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime/maxTime);
                 transform.position = pos;
 				rb.isKinematic = true;
@@ -77,6 +77,7 @@ public class BallController : MonoBehaviour {
     public void Die()
     {
         Debug.Log("died");
+		GameData.scrollSpeed = 0.0f;
         beforeDie = transform.position;
         timeDie = Time.time;
         dead = true;
