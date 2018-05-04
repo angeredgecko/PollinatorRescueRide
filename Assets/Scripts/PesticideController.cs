@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeeController : MonoBehaviour {
+public class PesticideController : MonoBehaviour {
 
     SpriteRenderer sr;
     ParticleSystem ps;
@@ -15,24 +15,25 @@ public class BeeController : MonoBehaviour {
     float initialY;
     float time;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         sr = gameObject.GetComponent<SpriteRenderer>();
         ps = gameObject.GetComponent<ParticleSystem>();
         bc = GameObject.Find("Ball").GetComponent<BallController>();
 
         initialY = transform.position.y;
         time = 0;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         time += Time.deltaTime;
         transform.position = new Vector3(transform.position.x - (7.4f) * Time.deltaTime, .25f * Mathf.Sin(4f * time) + initialY, transform.position.z);
 
         if (transform.position.x < -11 & !hit)
         {
-            bc.missedInsects += 1;
             Destroy(gameObject);
         }
 
@@ -50,6 +51,7 @@ public class BeeController : MonoBehaviour {
             sr.enabled = false;
             ps.Play();
             hit = true;
+            bc.Die();
         }
     }
 }

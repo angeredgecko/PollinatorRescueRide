@@ -558,6 +558,7 @@ GameObject:
   - component: {fileID: 2130173134}
   - component: {fileID: 2130173136}
   - component: {fileID: 2130173137}
+  - component: {fileID: 2130173138}
   m_Layer: 0
   m_Name: WorldObject
   m_TagString: Untagged
@@ -665,5 +666,22 @@ MonoBehaviour:
   beePrefab: {fileID: 1580309789859910, guid: c73f59f2ddbfbfa43aa97546558a6b03, type: 2}
   avgTime: 2
   maxRandTime: 1
+  randTime: 1
+  lastTime: 0
+--- !u!114 &2130173138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2130173131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cebc6b4ae621b5246a22db17ddd5c9c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pesticidePrefab: {fileID: 1457114417944722, guid: b9bd8acfbc2a0c64a9059a5fe908c537,
+    type: 2}
+  avgTime: 5
+  maxRandTime: 10
   randTime: 1
   lastTime: 0

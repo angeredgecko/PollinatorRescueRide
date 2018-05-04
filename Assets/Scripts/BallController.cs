@@ -13,6 +13,10 @@ public class BallController : MonoBehaviour {
     public float score = 0.0f;
     public float missedInsects = 0.0f;
 
+    bool dead = false;
+    Vector3 beforeDie;
+    float timeDie;
+
 	// Use this for initialization
 	void Start () {
 
@@ -20,10 +24,27 @@ public class BallController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        bool mouseDown = getClick(hold);
-		if (mouseDown)
+        if (!dead)
         {
-            rb.velocity = new Vector2(0, sensitivity);
+            bool mouseDown = getClick(hold);
+            if (mouseDown)
+            {
+                rb.velocity = new Vector2(0, sensitivity);
+            }
+        } else
+        {
+            Vector3 target = new Vector3(0, 0, 0);
+            if (transform.position.Equals(target))
+            {
+
+            } else
+            {
+                float currentTime = Time.time;
+                float deltaTime = currentTime - timeDie;
+                float maxTime = 1.5f;
+                Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime/maxTime);
+                transform.position = pos;
+            }
         }
 	}
 
@@ -50,5 +71,13 @@ public class BallController : MonoBehaviour {
     private void FixedUpdate()
     {
 
+    }
+
+    public void Die()
+    {
+        Debug.Log("died");
+        beforeDie = transform.position;
+        timeDie = Time.time;
+        dead = true;
     }
 }
