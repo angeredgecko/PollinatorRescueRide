@@ -7,6 +7,7 @@ public class BallController : MonoBehaviour {
     public float sensitivity = 10.0f;
     public bool hold = false;
     public Rigidbody2D rb;
+    CircleCollider2D cc2d;
 
     public float distTraveled = 0.0f;
 
@@ -17,9 +18,12 @@ public class BallController : MonoBehaviour {
     Vector3 beforeDie;
     float timeDie;
 
+    Animator animator;
+
 	// Use this for initialization
 	void Start () {
-
+        animator = GetComponent<Animator>();
+        cc2d = GetComponent<CircleCollider2D>();
 	}
 	
 	// Update is called once per frame
@@ -44,7 +48,6 @@ public class BallController : MonoBehaviour {
                 float maxTime = .75f;
                 Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime/maxTime);
                 transform.position = pos;
-				rb.isKinematic = true;
             }
         }
 	}
@@ -81,5 +84,8 @@ public class BallController : MonoBehaviour {
         beforeDie = transform.position;
         timeDie = Time.time;
         dead = true;
+        cc2d.enabled = false;
+        rb.isKinematic = true;
+        animator.SetBool("Running?", false);
     }
 }

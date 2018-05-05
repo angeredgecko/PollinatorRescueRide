@@ -681,7 +681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pesticidePrefab: {fileID: 1457114417944722, guid: b9bd8acfbc2a0c64a9059a5fe908c537,
     type: 2}
-  avgTime: 5
-  maxRandTime: 10
+  avgTime: 6
+  maxRandTime: 6
   randTime: 1
   lastTime: 0
