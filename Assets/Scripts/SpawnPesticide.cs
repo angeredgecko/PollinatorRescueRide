@@ -22,13 +22,16 @@ public class SpawnPesticide : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        float currentTime = Time.time;
-        if (currentTime - lastTime > avgTime + randTime)
+        if (GameData.GetState() == GameData.GameState.PLAYING)
         {
-            lastTime = currentTime;
-            float initalY = Random.Range(-3f, 4f);
-            GameObject pesticide = Instantiate(pesticidePrefab, new Vector3(11, initalY, 0.5f), Quaternion.identity);
-            randTime = Random.Range(-maxRandTime / 2, maxRandTime / 2);
+            float currentTime = Time.time;
+            if (currentTime - lastTime > avgTime + randTime && GameData.GetState() == GameData.GameState.PLAYING)
+            {
+                lastTime = currentTime;
+                float initalY = Random.Range(-3f, 4f);
+                GameObject pesticide = Instantiate(pesticidePrefab, new Vector3(11, initalY, 0.5f), Quaternion.identity);
+                randTime = Random.Range(-maxRandTime / 2, maxRandTime / 2);
+            }
         }
     }
 }

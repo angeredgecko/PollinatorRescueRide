@@ -24,8 +24,11 @@ public class BackgroundController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float offset = Time.deltaTime * GameData.scrollSpeed;
-        bControl.distTraveled += offset * (7.4f/3f);
-        m_Material.mainTextureOffset = new Vector2(m_Material.mainTextureOffset.x+offset, 0);
+        if (GameData.GetState() == GameData.GameState.PLAYING)
+        {
+            float offset = Time.deltaTime * GameData.scrollSpeed;
+            bControl.distTraveled += offset * (7.4f / 3f);
+            m_Material.mainTextureOffset = new Vector2(m_Material.mainTextureOffset.x + offset, 0);
+        }
 	}
 }

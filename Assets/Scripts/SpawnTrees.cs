@@ -24,24 +24,27 @@ public class SpawnTrees : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        hasSpawned = false;
-        float timeSinceLastTree = Time.time - lastTreeTime;
-		if (trees.Count < maxTrees && !hasSpawned && timeSinceLastTree - nextRandom > minWaitTime)
+        if (GameData.GetState() == GameData.GameState.PLAYING)
         {
-            trees.Add(Instantiate(treePreFab, new Vector3(12f, yPos, depth), Quaternion.identity));
-            hasSpawned = true;
-            lastTreeTime = Time.time;
-            nextRandom = Random.value;
-        }
-        foreach (GameObject tree in trees.ToArray())
-        {
-            if (tree.transform.position.x < -12f)
+            hasSpawned = false;
+            float timeSinceLastTree = Time.time - lastTreeTime;
+            if (trees.Count < maxTrees && !hasSpawned && timeSinceLastTree - nextRandom > minWaitTime)
             {
-                trees.Remove(tree);
-                Destroy(tree);
+                trees.Add(Instantiate(treePreFab, new Vector3(12f, yPos, depth), Quaternion.identity));
+                hasSpawned = true;
+                lastTreeTime = Time.time;
+                nextRandom = Random.value;
             }
-            tree.transform.localScale = new Vector3(treeSize, treeSize, treeSize);
-            tree.transform.position = new Vector3(tree.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (treeSpeed / 3f)), yPos, depth);
+            foreach (GameObject tree in trees.ToArray())
+            {
+                if (tree.transform.position.x < -12f)
+                {
+                    trees.Remove(tree);
+                    Destroy(tree);
+                }
+                tree.transform.localScale = new Vector3(treeSize, treeSize, treeSize);
+                tree.transform.position = new Vector3(tree.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (treeSpeed / 3f)), yPos, depth);
+            }
         }
 	}
 }

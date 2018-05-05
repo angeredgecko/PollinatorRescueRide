@@ -26,28 +26,31 @@ public class SpawnClouds : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        hasSpawned = false;
-        float timeSinceLastcloud = Time.time - lastcloudTime;
-        if (clouds.Count < maxclouds && !hasSpawned && timeSinceLastcloud - nextRandom > minWaitTime)
+        if (GameData.GetState() == GameData.GameState.PLAYING)
         {
-            float randYOffset = Random.Range(-1, 1);
-            GameObject newCloud = Instantiate(cloudPreFab, new Vector3(11f, yPos + randYOffset, depth), Quaternion.identity);
-            newCloud.transform.localScale = new Vector3(cloudSize*Random.Range(.8f, 1.2f), cloudSize * Random.Range(.8f, 1.2f), cloudSize * Random.Range(.8f, 1.2f));
-            clouds.Add(newCloud, new float[] { 0, randYOffset });
-            hasSpawned = true;
-            lastcloudTime = Time.time;
-            nextRandom = Random.value * 2;
-        }
-        foreach (GameObject cloud in new List<GameObject>(clouds.Keys))
-        {
-            clouds[cloud][0] += Time.deltaTime;
-            if (cloud.transform.position.x < -11f)
+            hasSpawned = false;
+            float timeSinceLastcloud = Time.time - lastcloudTime;
+            if (clouds.Count < maxclouds && !hasSpawned && timeSinceLastcloud - nextRandom > minWaitTime)
             {
-                clouds.Remove(cloud);
-                Destroy(cloud);
-                break;
+                float randYOffset = Random.Range(-1, 1);
+                GameObject newCloud = Instantiate(cloudPreFab, new Vector3(11f, yPos + randYOffset, depth), Quaternion.identity);
+                newCloud.transform.localScale = new Vector3(cloudSize * Random.Range(.8f, 1.2f), cloudSize * Random.Range(.8f, 1.2f), cloudSize * Random.Range(.8f, 1.2f));
+                clouds.Add(newCloud, new float[] { 0, randYOffset });
+                hasSpawned = true;
+                lastcloudTime = Time.time;
+                nextRandom = Random.value * 2;
             }
-            cloud.transform.position = new Vector3(cloud.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (cloudSpeed / 3f)), .15f * Mathf.Sin(1.4f*clouds[cloud][0]) + yPos+clouds[cloud][1], depth);
+            foreach (GameObject cloud in new List<GameObject>(clouds.Keys))
+            {
+                clouds[cloud][0] += Time.deltaTime;
+                if (cloud.transform.position.x < -11f)
+                {
+                    clouds.Remove(cloud);
+                    Destroy(cloud);
+                    break;
+                }
+                cloud.transform.position = new Vector3(cloud.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (cloudSpeed / 3f)), .15f * Mathf.Sin(1.4f * clouds[cloud][0]) + yPos + clouds[cloud][1], depth);
+            }
         }
     }
 }

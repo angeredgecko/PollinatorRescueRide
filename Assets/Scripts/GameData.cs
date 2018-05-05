@@ -17,5 +17,21 @@ public static class GameData {
 	public static float distTraveled = 0.0f;
 	public static int missedInsects = 0;
 	public static int hitInsects = 0;
-	public static GameState state;
+	private static GameState state;
+    private static GameState nextState;
+
+    public static void setState(GameState nextState)
+    {
+        GameData.nextState = nextState;
+    }
+
+    public static GameState GetState()
+    {
+        return state;
+    }
+
+    public static void UpdateState()
+    {
+        state = nextState;
+    }
 }

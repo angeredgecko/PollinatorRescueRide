@@ -24,30 +24,37 @@ public class BallController : MonoBehaviour {
 	void Start () {
         animator = GetComponent<Animator>();
         cc2d = GetComponent<CircleCollider2D>();
+
+        animator.SetBool("Running?", true);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (!dead)
+        if (GameData.GetState() == GameData.GameState.PLAYING)
         {
-            bool mouseDown = getClick(hold);
-            if (mouseDown)
+            if (!dead)
             {
-                rb.velocity = new Vector2(0, sensitivity);
+                bool mouseDown = getClick(hold);
+                if (mouseDown)
+                {
+                    rb.velocity = new Vector2(0, sensitivity);
+                }
             }
-        } else
-        {
-            Vector3 target = new Vector3(0, 0, 0);
-            if (transform.position.Equals(target))
+            else
             {
-
-            } else
-            {
-                float currentTime = Time.time;
-                float deltaTime = currentTime - timeDie;
-                float maxTime = .75f;
-                Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime/maxTime);
-                transform.position = pos;
+                Vector3 target = new Vector3(0, 0, 0);
+                if (transform.position.Equals(target))
+                {
+                    GameData.setState(GameData.GameState.DEAD);
+                }
+                else
+                {
+                    float currentTime = Time.time;
+                    float deltaTime = currentTime - timeDie;
+                    float maxTime = .75f;
+                    Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime / maxTime);
+                    transform.position = pos;
+                }
             }
         }
 	}
@@ -87,5 +94,6 @@ public class BallController : MonoBehaviour {
         cc2d.enabled = false;
         rb.isKinematic = true;
         animator.SetBool("Running?", false);
+        GameData.setState(GameData.GameState.DYING);
     }
 }
