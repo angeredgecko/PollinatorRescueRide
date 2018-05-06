@@ -9,11 +9,6 @@ public class BallController : MonoBehaviour {
     public Rigidbody2D rb;
     CircleCollider2D cc2d;
 
-    public float distTraveled = 0.0f;
-
-    public float score = 0.0f;
-    public float missedInsects = 0.0f;
-
     Vector3 beforeDie;
     float timeDie;
 
@@ -61,7 +56,7 @@ public class BallController : MonoBehaviour {
         } else if (GameData.GetState() == GameData.GameState.DEAD)
         {
             GameData.setState(GameData.GameState.MENU);
-            GameData.canvas.enabled = true;
+            GameData.panel.SetActive(true);
         }
 
 
@@ -83,7 +78,7 @@ public class BallController : MonoBehaviour {
     {
         if (other.tag == "Bee")
         {
-            score += 1;
+            GameData.hitInsects += 1;
         }
     }
 
@@ -110,8 +105,5 @@ public class BallController : MonoBehaviour {
         rb.isKinematic = false;
         animator.SetBool("Running?", true);
         transform.position = new Vector3(-2.5f, 0f);
-        distTraveled = 0;
-        score = 0;
-        missedInsects = 0;
     }
 }

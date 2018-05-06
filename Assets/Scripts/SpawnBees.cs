@@ -16,8 +16,7 @@ public class SpawnBees : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        lastTime = Time.time;
-        randTime = Random.Range(-maxRandTime / 2, maxRandTime / 2);
+        ResetValues();
 	}
 	
 	// Update is called once per frame
@@ -37,7 +36,7 @@ public class SpawnBees : MonoBehaviour {
 	}
     public void ResetValues()
     {
-        randTime = 1.0f;
-        lastTime = 0;
+        randTime = Random.Range(-maxRandTime / 2, maxRandTime / 2);
+        lastTime = Time.time;
     }
 }

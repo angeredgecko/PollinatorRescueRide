@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPesticide : MonoBehaviour {
+public class SpawnObstacle : MonoBehaviour {
 
-    public GameObject pesticidePrefab;
+    public GameObject obstaclePrefab;
     public float avgTime = 2f;
     public float maxRandTime = 1f;
 
@@ -12,7 +12,7 @@ public class SpawnPesticide : MonoBehaviour {
 
     public float lastTime = 0;
 
-    public List<GameObject> pesticides = new List<GameObject>();
+    public List<GameObject> obstacles = new List<GameObject>();
 
     // Use this for initialization
     void Start()
@@ -29,10 +29,10 @@ public class SpawnPesticide : MonoBehaviour {
             if (currentTime - lastTime > avgTime + randTime && GameData.GetState() == GameData.GameState.PLAYING)
             {
                 lastTime = currentTime;
-                float initalY = Random.Range(-3f, 4f);
-                GameObject pesticide = Instantiate(pesticidePrefab, new Vector3(11, initalY, 0.4f), Quaternion.identity);
+                float initalY = Random.Range(-2f, 3.2f);
+                GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(11, initalY, 0.6f), Quaternion.identity);
                 randTime = Random.Range(-maxRandTime / 2, maxRandTime / 2);
-                pesticides.Add(pesticide);
+                obstacles.Add(obstacle);
             }
         }
     }

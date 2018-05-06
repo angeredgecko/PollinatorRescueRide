@@ -13,9 +13,12 @@ public static class GameData {
 		DEAD
 	}
 
-    public static Canvas canvas;
+    public static GameObject panel;
 
+    public static float defaultScrollSpeed = 2.0f;
+    public static float maxScrollSpeed = 8.0f;
 	public static float scrollSpeed = 3.0f;
+    public static float timePlaying = 0.0f;
 	public static float distTraveled = 0.0f;
 	public static int missedInsects = 0;
 	public static int hitInsects = 0;
@@ -35,5 +38,13 @@ public static class GameData {
     public static void UpdateState()
     {
         state = nextState;
+    }
+    public static void ResetValues()
+    {
+        scrollSpeed = 3.0f;
+        timePlaying = 0.0f;
+        distTraveled = 0.0f;
+        missedInsects = 0;
+        hitInsects = 0;
     }
 }

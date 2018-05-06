@@ -146,7 +146,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.125
+  m_Radius: 0.12
 --- !u!95 &156460923
 Animator:
   serializedVersion: 3
@@ -198,9 +198,6 @@ MonoBehaviour:
   sensitivity: 6
   hold: 1
   rb: {fileID: 156460924}
-  distTraveled: 0
-  score: 0
-  missedInsects: 0
 --- !u!212 &156460926
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -339,7 +336,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 324496841}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 4}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -356,7 +353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24c6e27b2fbfc349b0c8867eac89c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 3
+  m_Material: {fileID: 0}
+  scrollSpeed: 2
 --- !u!1 &492150791
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,8 +755,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1496159045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 434.5, y: 244.5, z: 0}
-  m_LocalScale: {x: 1.08625, y: 1.08625, z: 1.08625}
+  m_LocalPosition: {x: 837, y: 471, z: 0}
+  m_LocalScale: {x: 2.0925, y: 2.0925, z: 2.0925}
   m_Children:
   - {fileID: 1687791195}
   m_Father: {fileID: 0}
@@ -980,6 +978,7 @@ GameObject:
   - component: {fileID: 2130173136}
   - component: {fileID: 2130173137}
   - component: {fileID: 2130173138}
+  - component: {fileID: 2130173140}
   - component: {fileID: 2130173139}
   m_Layer: 0
   m_Name: WorldObject
@@ -1000,6 +999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treePreFab: {fileID: 1961852400316876, guid: 1d1b3818df440994aa5ce4723d7d10de, type: 2}
+  trees: []
   maxTrees: 6
   treeSpeed: 7.4
   minWaitTime: 0.25
@@ -1031,6 +1031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treePreFab: {fileID: 1961852400316876, guid: 1d1b3818df440994aa5ce4723d7d10de, type: 2}
+  trees: []
   maxTrees: 8
   treeSpeed: 5
   minWaitTime: 0.4
@@ -1049,6 +1050,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treePreFab: {fileID: 1961852400316876, guid: 1d1b3818df440994aa5ce4723d7d10de, type: 2}
+  trees: []
   maxTrees: 7
   treeSpeed: 6.2
   minWaitTime: 0.33
@@ -1073,7 +1075,7 @@ MonoBehaviour:
   minWaitTime: 1
   cloudSize: 5
   yPos: 3.5
-  depth: 1
+  depth: 4
 --- !u!114 &2130173137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,10 +1088,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beePrefab: {fileID: 1580309789859910, guid: c73f59f2ddbfbfa43aa97546558a6b03, type: 2}
-  avgTime: 2
+  avgTime: 1
   maxRandTime: 1
   randTime: 1
   lastTime: 0
+  bees: []
 --- !u!114 &2130173138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,10 +1106,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pesticidePrefab: {fileID: 1457114417944722, guid: b9bd8acfbc2a0c64a9059a5fe908c537,
     type: 2}
-  avgTime: 6
-  maxRandTime: 6
+  avgTime: 4
+  maxRandTime: 2
   randTime: 1
   lastTime: 0
+  pesticides: []
 --- !u!114 &2130173139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,3 +1122,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c20e3ec05cedcc438b2de82bb8b2f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2130173140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2130173131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42cfc8bf79a92e5469ef1075d152871e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefab: {fileID: 1879983901708482, guid: 80eecb3704c35bd468b9ac109e51f4ea,
+    type: 2}
+  avgTime: 5
+  maxRandTime: 3
+  randTime: 1
+  lastTime: 0
+  obstacles: []

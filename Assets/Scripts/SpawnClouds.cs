@@ -57,6 +57,6 @@ public class SpawnClouds : MonoBehaviour {
     {
         hasSpawned = false;
         lastcloudTime = 0.0f;
-        nextRandom = 0.0f;
+        nextRandom = Random.value * 2;
     }
 }

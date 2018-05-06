@@ -34,7 +34,7 @@ public class BeeController : MonoBehaviour {
         }
         if (transform.position.x < -11 & !hit)
         {
-            bc.missedInsects += 1;
+            GameData.missedInsects += 1;
             Destroy(gameObject);
         }
 

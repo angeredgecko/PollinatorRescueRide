@@ -13,7 +13,7 @@ public class BackgroundController : MonoBehaviour {
 
 	private void Awake()
 	{
-		GameData.scrollSpeed = scrollSpeed;
+		GameData.defaultScrollSpeed = scrollSpeed;
 	}
 
 	void Start () {
@@ -27,7 +27,7 @@ public class BackgroundController : MonoBehaviour {
         if (GameData.GetState() == GameData.GameState.PLAYING)
         {
             float offset = Time.deltaTime * GameData.scrollSpeed;
-            bControl.distTraveled += offset * (7.4f / 3f);
+            GameData.distTraveled += offset * (7.4f / 3f);
             m_Material.mainTextureOffset = new Vector2(m_Material.mainTextureOffset.x + offset, 0);
         }
 	}

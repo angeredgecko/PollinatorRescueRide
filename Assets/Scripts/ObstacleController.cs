@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PesticideController : MonoBehaviour {
+public class ObstacleController : MonoBehaviour {
 
     SpriteRenderer sr;
     ParticleSystem ps;
 
     BallController bc;
 
-	BoxCollider2D bc2d;
+    BoxCollider2D bc2d;
 
     bool playedEffect = false;
     bool hit = false;
@@ -17,9 +17,9 @@ public class PesticideController : MonoBehaviour {
     float initialY;
     float time;
 
-	string state = "moving";
-	float timeDie;
-	Vector3 beforeDie;
+    string state = "moving";
+    float timeDie;
+    Vector3 beforeDie;
 
 
     // Use this for initialization
@@ -32,7 +32,7 @@ public class PesticideController : MonoBehaviour {
         initialY = transform.position.y;
         time = 0;
 
-		bc2d = gameObject.GetComponent<BoxCollider2D>();
+        bc2d = gameObject.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -67,7 +67,7 @@ public class PesticideController : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        if (hit && !ps.isPlaying)
+        if (hit)
         {
             GameData.setState(GameData.GameState.DEAD);
             Destroy(gameObject);
@@ -78,15 +78,16 @@ public class PesticideController : MonoBehaviour {
     {
         if (other.name == "Ball")
         {
+            Debug.Log("Hit");
             // Stops GameObject2 moving
-            sr.enabled = false;
+            //sr.enabled = false;
             ps.Play();
             hit = true;
             bc.Die();
-			timeDie = Time.time;
-			beforeDie = transform.position;
-			state = "dead";
-			bc2d.enabled = false;
+            timeDie = Time.time;
+            beforeDie = transform.position;
+            state = "dead";
+            bc2d.enabled = false;
         }
     }
 }

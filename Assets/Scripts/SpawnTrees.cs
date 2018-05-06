@@ -51,6 +51,6 @@ public class SpawnTrees : MonoBehaviour {
     {
         hasSpawned = false;
         lastTreeTime = 0.0f;
-        nextRandom = 0.0f;
+        nextRandom = Random.value;
     }
 }
