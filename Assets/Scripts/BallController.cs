@@ -29,8 +29,13 @@ public class BallController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (GameData.GetState() == GameData.GameState.PLAYING)
+        if (GameData.GetState() == GameData.GameState.MENU)
         {
+            rb.isKinematic = true;
+        }
+        else if (GameData.GetState() == GameData.GameState.PLAYING)
+        {
+            rb.isKinematic = false;
             bool mouseDown = getClick(hold);
             if (mouseDown)
             {
@@ -38,6 +43,7 @@ public class BallController : MonoBehaviour {
             }
         } else if (GameData.GetState() == GameData.GameState.DYING)
         {
+            rb.velocity = new Vector2(0,0);
             Vector3 target = new Vector3(0, 0, 0);
             if (transform.position.Equals(target))
             {
