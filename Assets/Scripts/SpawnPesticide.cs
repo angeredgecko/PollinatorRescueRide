@@ -12,6 +12,8 @@ public class SpawnPesticide : MonoBehaviour {
 
     public float lastTime = 0;
 
+    public List<GameObject> pesticides = new List<GameObject>();
+
     // Use this for initialization
     void Start()
     {
@@ -31,7 +33,14 @@ public class SpawnPesticide : MonoBehaviour {
                 float initalY = Random.Range(-3f, 4f);
                 GameObject pesticide = Instantiate(pesticidePrefab, new Vector3(11, initalY, 0.5f), Quaternion.identity);
                 randTime = Random.Range(-maxRandTime / 2, maxRandTime / 2);
+                pesticides.Add(pesticide);
             }
         }
+    }
+
+    public void ResetValues()
+    {
+        randTime = 1.0f;
+        lastTime = 0;
     }
 }

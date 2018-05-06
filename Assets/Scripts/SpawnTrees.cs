@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnTrees : MonoBehaviour {
 
     public GameObject treePreFab;
-    List<GameObject> trees = new List<GameObject>();
+    public List<GameObject> trees = new List<GameObject>();
     public int maxTrees = 5;
     public float treeSpeed = 1.0f;
     public float minWaitTime = 0.5f;
@@ -47,4 +47,10 @@ public class SpawnTrees : MonoBehaviour {
             }
         }
 	}
+    public void ResetValues()
+    {
+        hasSpawned = false;
+        lastTreeTime = 0.0f;
+        nextRandom = 0.0f;
+    }
 }

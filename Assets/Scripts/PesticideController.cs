@@ -45,32 +45,32 @@ public class PesticideController : MonoBehaviour {
             {
                 transform.position = new Vector3(transform.position.x - GameData.scrollSpeed * (7.4f / 3f) * Time.deltaTime, .25f * Mathf.Sin(4f * time) + initialY, transform.position.z);
             }
+        }
+        else if (GameData.GetState() == GameData.GameState.DYING)
+        {
+            Vector3 target = new Vector3(0, 0, 0);
+            if (transform.position.Equals(target))
+            {
+
+            }
             else
             {
-                Vector3 target = new Vector3(0, 0, 0);
-                if (transform.position.Equals(target))
-                {
-
-                }
-                else
-                {
-                    float currentTime = Time.time;
-                    float deltaTime = currentTime - timeDie;
-                    float maxTime = .75f;
-                    Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime / maxTime);
-                    transform.position = pos;
-                }
+                float currentTime = Time.time;
+                float deltaTime = currentTime - timeDie;
+                float maxTime = .75f;
+                Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime / maxTime);
+                transform.position = pos;
             }
+        }
+        if (transform.position.x < -11 & !hit)
+        {
+            Destroy(gameObject);
+        }
 
-            if (transform.position.x < -11 & !hit)
-            {
-                Destroy(gameObject);
-            }
-
-            if (hit && !ps.isPlaying)
-            {
-                Destroy(gameObject);
-            }
+        if (hit && !ps.isPlaying)
+        {
+            GameData.setState(GameData.GameState.DEAD);
+            Destroy(gameObject);
         }
     }
 

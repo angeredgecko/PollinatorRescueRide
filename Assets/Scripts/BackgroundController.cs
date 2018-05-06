@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour {
 
-    Material m_Material;
+    public Material m_Material;
     public float scrollSpeed = 1.0f;
     GameObject ball;
     BallController bControl;

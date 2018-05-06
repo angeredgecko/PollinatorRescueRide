@@ -23,6 +23,7 @@ public class BallController : MonoBehaviour {
 	void Start () {
         animator = GetComponent<Animator>();
         cc2d = GetComponent<CircleCollider2D>();
+        rb.isKinematic = true;
 
         animator.SetBool("Running?", true);
 	}
@@ -47,7 +48,7 @@ public class BallController : MonoBehaviour {
             Vector3 target = new Vector3(0, 0, 0);
             if (transform.position.Equals(target))
             {
-                GameData.setState(GameData.GameState.DEAD);
+                
             }
             else
             {
@@ -57,7 +58,12 @@ public class BallController : MonoBehaviour {
                 Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime / maxTime);
                 transform.position = pos;
             }
+        } else if (GameData.GetState() == GameData.GameState.DEAD)
+        {
+            GameData.setState(GameData.GameState.MENU);
+            GameData.canvas.enabled = true;
         }
+
 
     }
 
@@ -88,7 +94,6 @@ public class BallController : MonoBehaviour {
 
     public void Die()
     {
-        Debug.Log("died");
 		GameData.scrollSpeed = 0.0f;
         beforeDie = transform.position;
         timeDie = Time.time;
@@ -96,5 +101,17 @@ public class BallController : MonoBehaviour {
         rb.isKinematic = true;
         animator.SetBool("Running?", false);
         GameData.setState(GameData.GameState.DYING);
+    }
+
+    public void ResetValues()
+    {
+        GameData.scrollSpeed = 3.0f;
+        cc2d.enabled = true;
+        rb.isKinematic = false;
+        animator.SetBool("Running?", true);
+        transform.position = new Vector3(-2.5f, 0f);
+        distTraveled = 0;
+        score = 0;
+        missedInsects = 0;
     }
 }

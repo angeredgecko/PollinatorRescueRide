@@ -13,6 +13,8 @@ public static class GameData {
 		DEAD
 	}
 
+    public static Canvas canvas;
+
 	public static float scrollSpeed = 3.0f;
 	public static float distTraveled = 0.0f;
 	public static int missedInsects = 0;

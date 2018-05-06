@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnClouds : MonoBehaviour {
 
     public GameObject cloudPreFab;
-    Dictionary<GameObject, float[]> clouds = new Dictionary<GameObject, float[]>();
+    public Dictionary<GameObject, float[]> clouds = new Dictionary<GameObject, float[]>();
     public int maxclouds = 5;
     public float cloudSpeed = 1.0f;
     public float minWaitTime = 0.5f;
@@ -52,5 +52,11 @@ public class SpawnClouds : MonoBehaviour {
                 cloud.transform.position = new Vector3(cloud.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (cloudSpeed / 3f)), .15f * Mathf.Sin(1.4f * clouds[cloud][0]) + yPos + clouds[cloud][1], depth);
             }
         }
+    }
+    public void ResetValues()
+    {
+        hasSpawned = false;
+        lastcloudTime = 0.0f;
+        nextRandom = 0.0f;
     }
 }
