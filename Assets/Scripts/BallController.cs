@@ -14,7 +14,6 @@ public class BallController : MonoBehaviour {
     public float score = 0.0f;
     public float missedInsects = 0.0f;
 
-    bool dead = false;
     Vector3 beforeDie;
     float timeDie;
 
@@ -32,32 +31,29 @@ public class BallController : MonoBehaviour {
 	void Update () {
         if (GameData.GetState() == GameData.GameState.PLAYING)
         {
-            if (!dead)
+            bool mouseDown = getClick(hold);
+            if (mouseDown)
             {
-                bool mouseDown = getClick(hold);
-                if (mouseDown)
-                {
-                    rb.velocity = new Vector2(0, sensitivity);
-                }
+                rb.velocity = new Vector2(0, sensitivity);
+            }
+        } else if (GameData.GetState() == GameData.GameState.DYING)
+        {
+            Vector3 target = new Vector3(0, 0, 0);
+            if (transform.position.Equals(target))
+            {
+                GameData.setState(GameData.GameState.DEAD);
             }
             else
             {
-                Vector3 target = new Vector3(0, 0, 0);
-                if (transform.position.Equals(target))
-                {
-                    GameData.setState(GameData.GameState.DEAD);
-                }
-                else
-                {
-                    float currentTime = Time.time;
-                    float deltaTime = currentTime - timeDie;
-                    float maxTime = .75f;
-                    Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime / maxTime);
-                    transform.position = pos;
-                }
+                float currentTime = Time.time;
+                float deltaTime = currentTime - timeDie;
+                float maxTime = .75f;
+                Vector3 pos = Vector3.Lerp(beforeDie, target, deltaTime / maxTime);
+                transform.position = pos;
             }
         }
-	}
+
+    }
 
     bool getClick(bool hold)
     {
@@ -90,7 +86,6 @@ public class BallController : MonoBehaviour {
 		GameData.scrollSpeed = 0.0f;
         beforeDie = transform.position;
         timeDie = Time.time;
-        dead = true;
         cc2d.enabled = false;
         rb.isKinematic = true;
         animator.SetBool("Running?", false);
