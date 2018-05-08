@@ -43,7 +43,7 @@ public class BallController : MonoBehaviour {
             Vector3 target = new Vector3(0, 0, 0);
             if (transform.position.Equals(target))
             {
-                
+                GameData.setState(GameData.GameState.DEAD);
             }
             else
             {

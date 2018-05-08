@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d56e267e119cf43921dc0a826fcd4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 6
+  sensitivity: 9
   hold: 1
   rb: {fileID: 156460924}
 --- !u!212 &156460926
