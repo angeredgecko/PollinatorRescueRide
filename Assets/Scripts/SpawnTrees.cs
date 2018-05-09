@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnTrees : MonoBehaviour {
 
-    public GameObject treePreFab;
+    public List<GameObject> treePreFabs = new List<GameObject>();
     public List<GameObject> trees = new List<GameObject>();
     public int maxTrees = 5;
     public float treeSpeed = 1.0f;
@@ -30,6 +30,14 @@ public class SpawnTrees : MonoBehaviour {
             float timeSinceLastTree = Time.time - lastTreeTime;
             if (trees.Count < maxTrees && !hasSpawned && timeSinceLastTree - nextRandom > minWaitTime)
             {
+                int index = Random.Range(0, treePreFabs.Count);
+                //Debug.Log(index + " : " + treePreFabs.Count);
+                GameObject treePreFab = treePreFabs[index];
+                treePreFab.transform.localScale = new Vector3(treeSize, treeSize, treeSize);
+                if (index == 1)
+                {
+                    treePreFab.transform.localScale *= 1.2f;
+                }
                 trees.Add(Instantiate(treePreFab, new Vector3(12f, yPos, depth), Quaternion.identity));
                 hasSpawned = true;
                 lastTreeTime = Time.time;
@@ -42,8 +50,8 @@ public class SpawnTrees : MonoBehaviour {
                     trees.Remove(tree);
                     Destroy(tree);
                 }
-                tree.transform.localScale = new Vector3(treeSize, treeSize, treeSize);
-                tree.transform.position = new Vector3(tree.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (treeSpeed / 3f)), yPos, depth);
+                //tree.transform.localScale = new Vector3(treeSize, treeSize, treeSize);
+                tree.transform.position = new Vector3(tree.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (treeSpeed / 3f)), tree.transform.position.y, depth);
             }
         }
 	}

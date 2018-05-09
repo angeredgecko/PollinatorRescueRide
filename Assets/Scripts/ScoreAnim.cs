@@ -31,7 +31,7 @@ public class ScoreAnim : MonoBehaviour {
         else
         {
             score = GameData.hitInsects.ToString("D3");
-            text.transform.localPosition = new Vector3(text.transform.localPosition.x, -210f, 0);
+            text.transform.localPosition = new Vector3(text.transform.localPosition.x, -215f, 0);
         }
         text.text = score;
     }
