@@ -18,6 +18,8 @@ public class WorldController : MonoBehaviour {
 
     float beginTime;
 
+    ScoreAnim scoreAnim;
+
     private void Awake()
     {
         GameData.setState(GameData.GameState.MENU);
@@ -39,6 +41,9 @@ public class WorldController : MonoBehaviour {
         trees = worldObject.GetComponents<SpawnTrees>();
         obstacles = worldObject.GetComponents<SpawnObstacle>();
 
+        scoreAnim = GameObject.Find("LastScoreText").GetComponent<ScoreAnim>();
+        GameData.scoreAnim = scoreAnim;
+
         GameData.scrollSpeed = GameData.defaultScrollSpeed;
 
         beginTime = Time.time;
@@ -49,7 +54,7 @@ public class WorldController : MonoBehaviour {
         if (GameData.GetState() == GameData.GameState.PLAYING)
         {
             GameData.timePlaying = Time.time - beginTime;
-            GameData.scrollSpeed = GameData.maxScrollSpeed / (1f + ((GameData.maxScrollSpeed / GameData.defaultScrollSpeed) - 1) * (Mathf.Exp(-.02f * (GameData.timePlaying))));
+            GameData.scrollSpeed = GameData.maxScrollSpeed / (1f + ((GameData.maxScrollSpeed / GameData.defaultScrollSpeed) - 1) * (Mathf.Exp(-.023f * (GameData.timePlaying))));
         } else
         {
             beginTime = Time.time;
@@ -58,7 +63,7 @@ public class WorldController : MonoBehaviour {
         GameData.UpdateState();
 
         //GameData.scrollSpeed = GameData.defaultScrollSpeed + (GameData.distTraveled / 250f);
-        Debug.Log(GameData.scrollSpeed);
+        //Debug.Log(GameData.scrollSpeed);
 	}
 
     public void OnPlay()
@@ -66,6 +71,11 @@ public class WorldController : MonoBehaviour {
         GameData.setState(GameData.GameState.PLAYING);
         panel.SetActive(false);
         ResetGame();
+    }
+
+    public void onTutorial()
+    {
+
     }
 
     public void ResetGame()

@@ -9,6 +9,8 @@ public class BeeController : MonoBehaviour {
 
     BallController bc;
 
+    CircleCollider2D cc2d;
+
     bool playedEffect = false;
     bool hit = false;
 
@@ -20,6 +22,7 @@ public class BeeController : MonoBehaviour {
         sr = gameObject.GetComponent<SpriteRenderer>();
         ps = gameObject.GetComponent<ParticleSystem>();
         bc = GameObject.Find("Ball").GetComponent<BallController>();
+        cc2d = GetComponent<CircleCollider2D>();
 
         initialY = transform.position.y;
         time = 0;
@@ -49,6 +52,7 @@ public class BeeController : MonoBehaviour {
         if (other.name == "Ball")
         {
             // Stops GameObject2 moving
+            cc2d.enabled = false;
             sr.enabled = false;
             ps.Play();
             hit = true;

@@ -57,6 +57,8 @@ public class BallController : MonoBehaviour {
         {
             GameData.setState(GameData.GameState.MENU);
             GameData.panel.SetActive(true);
+            GameData.panel.GetComponent<PanelAnim>().playPopup();
+            GameData.scoreAnim.playBig();
         }
 
 
@@ -79,6 +81,7 @@ public class BallController : MonoBehaviour {
         if (other.tag == "Bee")
         {
             GameData.hitInsects += 1;
+            GameData.scoreAnim.playSmall();
         }
     }
 
@@ -96,6 +99,7 @@ public class BallController : MonoBehaviour {
         rb.isKinematic = true;
         animator.SetBool("Running?", false);
         GameData.setState(GameData.GameState.DYING);
+        GameData.lastScore = GameData.hitInsects;
     }
 
     public void ResetValues()
