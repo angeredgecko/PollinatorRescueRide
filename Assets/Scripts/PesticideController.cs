@@ -69,7 +69,6 @@ public class PesticideController : MonoBehaviour {
 
         if (hit && !ps.isPlaying)
         {
-            GameData.setState(GameData.GameState.DEAD);
             Destroy(gameObject);
         }
     }

@@ -12,15 +12,10 @@ public class BallController : MonoBehaviour {
     Vector3 beforeDie;
     float timeDie;
 
-    Animator animator;
-
 	// Use this for initialization
 	void Start () {
-        animator = GetComponent<Animator>();
         cc2d = GetComponent<CircleCollider2D>();
         rb.isKinematic = true;
-
-        animator.SetBool("Running?", true);
 	}
 	
 	// Update is called once per frame
@@ -97,7 +92,6 @@ public class BallController : MonoBehaviour {
         timeDie = Time.time;
         cc2d.enabled = false;
         rb.isKinematic = true;
-        animator.SetBool("Running?", false);
         GameData.setState(GameData.GameState.DYING);
         GameData.lastScore = GameData.hitInsects;
     }
@@ -107,7 +101,6 @@ public class BallController : MonoBehaviour {
         GameData.scrollSpeed = 3.0f;
         cc2d.enabled = true;
         rb.isKinematic = false;
-        animator.SetBool("Running?", true);
         transform.position = new Vector3(-2.5f, 0f);
     }
 }

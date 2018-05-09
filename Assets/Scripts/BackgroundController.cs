@@ -9,6 +9,8 @@ public class BackgroundController : MonoBehaviour {
     GameObject ball;
     BallController bControl;
 
+    public float currentScrollSpeed = 1.0f;
+
 	// Use this for initialization
 
 	private void Awake()
@@ -30,5 +32,7 @@ public class BackgroundController : MonoBehaviour {
             GameData.distTraveled += offset * (7.4f / 3f);
             m_Material.mainTextureOffset = new Vector2(m_Material.mainTextureOffset.x + offset, 0);
         }
+
+        currentScrollSpeed = GameData.scrollSpeed;
 	}
 }

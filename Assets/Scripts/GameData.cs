@@ -16,8 +16,8 @@ public static class GameData {
     public static GameObject panel;
     public static ScoreAnim scoreAnim;
 
-    public static float defaultScrollSpeed = 2.0f;
-    public static float maxScrollSpeed = 5.5f;
+    public static float defaultScrollSpeed = 2.75f;
+    public static float maxScrollSpeed = 6.0f;
 	public static float scrollSpeed = 3.0f;
     public static float timePlaying = 0.0f;
 	public static float distTraveled = 0.0f;
