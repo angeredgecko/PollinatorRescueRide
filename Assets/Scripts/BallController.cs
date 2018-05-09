@@ -55,7 +55,7 @@ public class BallController : MonoBehaviour {
             GameData.panel.GetComponent<PanelAnim>().playPopup();
             GameData.scoreAnim.playBig();
         }
-
+		//test
 
     }
 
