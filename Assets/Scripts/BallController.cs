@@ -53,6 +53,7 @@ public class BallController : MonoBehaviour {
             GameData.setState(GameData.GameState.MENU);
             GameData.panel.SetActive(true);
             GameData.panel.GetComponent<PanelAnim>().playPopup();
+			Debug.Log("DEAD");
             GameData.scoreAnim.playBig();
         }
 
