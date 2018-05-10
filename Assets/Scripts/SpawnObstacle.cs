@@ -30,7 +30,9 @@ public class SpawnObstacle : MonoBehaviour {
             {
                 lastTime = currentTime;
                 float initalY = Random.Range(-2f, 3.2f);
-                GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(11, initalY, 0.6f), Quaternion.identity);
+                float randomRot = Random.Range(0, 7) * 45;
+                Vector3 rot = new Vector3(0,0,randomRot);
+                GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(11, initalY, 0.6f), Quaternion.Euler(rot));
                 randTime = Random.Range(-maxRandTime / 2, maxRandTime / 2);
                 obstacles.Add(obstacle);
             }
