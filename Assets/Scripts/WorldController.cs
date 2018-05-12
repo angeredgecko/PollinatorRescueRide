@@ -20,6 +20,8 @@ public class WorldController : MonoBehaviour {
 
     ScoreAnim scoreAnim;
 
+    AudioSource audio;
+
     private void Awake()
     {
         GameData.setState(GameData.GameState.MENU);
@@ -47,6 +49,8 @@ public class WorldController : MonoBehaviour {
         GameData.scrollSpeed = GameData.defaultScrollSpeed;
 
         beginTime = Time.time;
+
+        audio = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -71,6 +75,7 @@ public class WorldController : MonoBehaviour {
         GameData.setState(GameData.GameState.PLAYING);
         panel.SetActive(false);
         ResetGame();
+        audio.Play();
     }
 
     public void onTutorial()
