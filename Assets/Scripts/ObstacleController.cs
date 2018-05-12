@@ -21,6 +21,7 @@ public class ObstacleController : MonoBehaviour {
     float timeDie;
     Vector3 beforeDie;
 
+    AudioSource audioSource;
 
     // Use this for initialization
     void Start()
@@ -33,6 +34,8 @@ public class ObstacleController : MonoBehaviour {
         time = 0;
 
         bc2d = gameObject.GetComponent<BoxCollider2D>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -75,6 +78,7 @@ public class ObstacleController : MonoBehaviour {
             beforeDie = transform.position;
             state = "dead";
             bc2d.enabled = false;
+            audioSource.Play();
         }
     }
 }

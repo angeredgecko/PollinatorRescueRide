@@ -21,6 +21,7 @@ public class PesticideController : MonoBehaviour {
 	float timeDie;
 	Vector3 beforeDie;
 
+    AudioSource audioSource;
 
     // Use this for initialization
     void Start()
@@ -33,6 +34,8 @@ public class PesticideController : MonoBehaviour {
         time = 0;
 
 		bc2d = gameObject.GetComponent<BoxCollider2D>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -86,6 +89,7 @@ public class PesticideController : MonoBehaviour {
 			beforeDie = transform.position;
 			state = "dead";
 			bc2d.enabled = false;
+            audioSource.Play();
         }
     }
 }

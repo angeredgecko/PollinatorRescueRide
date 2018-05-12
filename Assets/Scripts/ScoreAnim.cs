@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ScoreAnim : MonoBehaviour {
 
@@ -26,6 +27,7 @@ public class ScoreAnim : MonoBehaviour {
         if (GameData.GetState() == GameData.GameState.MENU)
         {
             score = GameData.lastScore.ToString("D3");
+            score = Stats.current.scores.ToArray().Max().ToString("D3");
             text.transform.localPosition = new Vector3(text.transform.localPosition.x, 115f, 0);
         }
         else

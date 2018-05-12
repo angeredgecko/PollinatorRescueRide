@@ -94,6 +94,11 @@ public class BallController : MonoBehaviour {
         rb.isKinematic = true;
         GameData.setState(GameData.GameState.DYING);
         GameData.lastScore = GameData.hitInsects;
+
+        Stats.current.scores.Add(GameData.lastScore);
+        Stats.current.gameLengths.Add(GameData.timePlaying);
+
+        Storage.Save(Stats.current);
     }
 
     public void ResetValues()

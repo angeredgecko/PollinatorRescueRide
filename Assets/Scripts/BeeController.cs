@@ -17,12 +17,15 @@ public class BeeController : MonoBehaviour {
     float initialY;
     float time;
 
+    AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
         sr = gameObject.GetComponent<SpriteRenderer>();
         ps = gameObject.GetComponent<ParticleSystem>();
         bc = GameObject.Find("Ball").GetComponent<BallController>();
         cc2d = GetComponent<CircleCollider2D>();
+        audioSource = GetComponent<AudioSource>();
 
         initialY = transform.position.y;
         time = 0;
@@ -56,6 +59,7 @@ public class BeeController : MonoBehaviour {
             sr.enabled = false;
             ps.Play();
             hit = true;
+            audioSource.Play();
         }
     }
 }

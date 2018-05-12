@@ -26,6 +26,11 @@ public class WorldController : MonoBehaviour {
     {
         GameData.setState(GameData.GameState.MENU);
         GameData.UpdateState();
+
+        Storage.Load(out Stats.current);
+        Debug.Log(Application.persistentDataPath);
+        Debug.Log("Gamelengths: " + Stats.current.gameLengths.Count);
+        Debug.Log("Scores: " + Stats.current.scores.Count);
     }
 
     // Use this for initialization
