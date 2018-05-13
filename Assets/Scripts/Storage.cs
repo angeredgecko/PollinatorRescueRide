@@ -10,6 +10,7 @@ public static class Storage {
 
     public static void Save(Stats stats)
     {
+        Debug.Log("Called Save");
         BinaryFormatter bf = new BinaryFormatter();
         //Application.persistentDataPath is a string, so if you wanted you can put that into debug.log if you want to know where save games are located
         FileStream file = File.Create(path); //you can call it anything you want
@@ -19,6 +20,7 @@ public static class Storage {
 
     public static bool Load(out Stats stats)
     {
+        Debug.Log("Called Load.");
         if (File.Exists(Application.persistentDataPath + "/stats.gd"))
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -29,5 +31,17 @@ public static class Storage {
         }
         stats = new Stats();
         return false;
+    }
+
+    public static void ListIndexedDBFiles()
+    {
+        foreach (string file in System.IO.Directory.GetFiles(Application.persistentDataPath))
+        {
+            Debug.Log("File: " + file);
+        }
+        foreach (string folder in System.IO.Directory.GetDirectories(Application.persistentDataPath))
+        {
+            Debug.Log("Folder: " + folder);
+        }
     }
 }

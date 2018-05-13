@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class BallController : MonoBehaviour {
@@ -12,8 +13,11 @@ public class BallController : MonoBehaviour {
     Vector3 beforeDie;
     float timeDie;
 
-	// Use this for initialization
-	void Start () {
+    [DllImport("__Internal")]
+    private static extern void SyncData();
+
+    // Use this for initialization
+    void Start () {
         cc2d = GetComponent<CircleCollider2D>();
         rb.isKinematic = true;
 	}
@@ -99,6 +103,7 @@ public class BallController : MonoBehaviour {
         Stats.current.gameLengths.Add(GameData.timePlaying);
 
         Storage.Save(Stats.current);
+        SyncData();
     }
 
     public void ResetValues()

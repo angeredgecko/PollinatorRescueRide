@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,10 +25,12 @@ public class WorldController : MonoBehaviour {
 
     private void Awake()
     {
+        Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
         GameData.setState(GameData.GameState.MENU);
         GameData.UpdateState();
 
-        Storage.Load(out Stats.current);
+        Debug.Log(Storage.Load(out Stats.current));
+        Storage.ListIndexedDBFiles();
         Debug.Log(Application.persistentDataPath);
         Debug.Log("Gamelengths: " + Stats.current.gameLengths.Count);
         Debug.Log("Scores: " + Stats.current.scores.Count);
