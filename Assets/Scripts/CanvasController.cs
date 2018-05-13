@@ -13,8 +13,15 @@ public class CanvasController : MonoBehaviour {
 
     GameObject buttonContainer;
     GameObject statContainer;
+    GameObject tutorialContainer;
 
     AudioSource audioSource;
+
+    List<GameObject> pages = new List<GameObject>();
+    List<Button> controlButtons = new List<Button>();
+
+    int currentPage;
+    int maxPage;
 
     public enum CanvasState
     {
@@ -31,7 +38,21 @@ public class CanvasController : MonoBehaviour {
         panel = GameObject.Find("Panel");
         GameData.panel = panel;
 		buttonContainer = GameObject.Find("MainButtonsContainer");
-		statContainer = GameObject.Find("StatsContainer");
+        statContainer = GameObject.Find("StatsContainer");
+        tutorialContainer = GameObject.Find("TutorialPages");
+        maxPage = tutorialContainer.transform.childCount-4;
+
+        foreach (Transform t in tutorialContainer.transform)
+        {
+            if (t.name.StartsWith("Page"))
+            {
+                pages.Add(t.gameObject);
+            } else
+            {
+                controlButtons.Add(t.gameObject.GetComponent<Button>());
+            }
+        }
+
 		mainMenuButtons = buttonContainer.GetComponentsInChildren<Button>();
         audioSource = GetComponent<AudioSource>();
 		currentState = CanvasState.MAIN;
@@ -48,6 +69,7 @@ public class CanvasController : MonoBehaviour {
             {
                 buttonContainer.SetActive(true);
                 statContainer.SetActive(false);
+                tutorialContainer.SetActive(false);
                 foreach (Button b in mainMenuButtons)
                 {
                     b.enabled = true;
@@ -64,8 +86,9 @@ public class CanvasController : MonoBehaviour {
             {
                 buttonContainer.SetActive(false);
                 statContainer.SetActive(true);
+                tutorialContainer.SetActive(false);
 
-				if (Stats.current.scores.Count > 0)
+                if (Stats.current.scores.Count > 0)
 				{
 					textStats[0].text = Stats.current.scores.ToArray().Max().ToString("D3");
 					textStats[1].text = (Stats.current.scores.ToArray().Sum() / Stats.current.scores.Count).ToString("D3");
@@ -82,7 +105,40 @@ public class CanvasController : MonoBehaviour {
 					textStats[2].text = "00:00";
 					textStats[3].text = "00:00";
 				}
-			}
+			} else if (getState() == CanvasState.TUTORIAL)
+            {
+                buttonContainer.SetActive(false);
+                statContainer.SetActive(false);
+                tutorialContainer.SetActive(true);
+
+                foreach (Button b in controlButtons)
+                {
+                    b.interactable = true;
+                }
+
+                if (currentPage == 0)
+                {
+                    controlButtons[0].interactable = false;
+                }
+                if (currentPage == maxPage) {
+                    controlButtons[2].interactable = false;
+                }
+
+                for (int i = 0; i <= maxPage; i++)
+                {
+                    Debug.Log(i);
+                    GameObject page = pages[i];
+
+                    if (i == currentPage)
+                    {
+                        page.SetActive(true);
+                    }
+                    else
+                    {
+                        page.SetActive(false);
+                    }
+                }
+            }
         }
         else
         {
@@ -111,6 +167,7 @@ public class CanvasController : MonoBehaviour {
 
     public void onTutorial()
     {
+        currentPage = 0;
         setState(CanvasState.TUTORIAL);
     }
 
@@ -137,6 +194,16 @@ public class CanvasController : MonoBehaviour {
 	{
 		setState(CanvasState.MAIN);
 	}
+
+    public void onLeft()
+    {
+        currentPage--;
+    }
+
+    public void onRight()
+    {
+        currentPage++;
+    }
 
 	[DllImport("__Internal")]
 	private static extern void SyncData();
