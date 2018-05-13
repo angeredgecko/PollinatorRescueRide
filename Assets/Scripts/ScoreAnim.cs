@@ -27,7 +27,6 @@ public class ScoreAnim : MonoBehaviour {
         if ((GameData.GetState() == GameData.GameState.MENU || GameData.GetState() == GameData.GameState.PAUSED) && CanvasController.getState() == CanvasController.CanvasState.MAIN)
         {
             score = GameData.lastScore.ToString("D3");
-            score = Stats.current.scores.ToArray().Max().ToString("D3");
             text.transform.localPosition = new Vector3(text.transform.localPosition.x, 115f, 0);
         }
         else

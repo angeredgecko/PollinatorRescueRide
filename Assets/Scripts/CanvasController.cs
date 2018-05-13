@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +9,7 @@ public class CanvasController : MonoBehaviour {
 
     GameObject panel;
     Button[] mainMenuButtons;
+	public Text[] textStats;
 
     GameObject buttonContainer;
     GameObject statContainer;
@@ -27,12 +30,11 @@ public class CanvasController : MonoBehaviour {
     void Start () {
         panel = GameObject.Find("Panel");
         GameData.panel = panel;
-        mainMenuButtons = panel.GetComponentsInChildren<Button>();
+		buttonContainer = GameObject.Find("MainButtonsContainer");
+		statContainer = GameObject.Find("StatsContainer");
+		mainMenuButtons = buttonContainer.GetComponentsInChildren<Button>();
         audioSource = GetComponent<AudioSource>();
-        currentState = CanvasState.MAIN;
-
-        buttonContainer = GameObject.Find("MainButtonsContainer");
-        statContainer = GameObject.Find("StatsContainer");
+		currentState = CanvasState.MAIN;
     }
 	
 	// Update is called once per frame
@@ -62,7 +64,25 @@ public class CanvasController : MonoBehaviour {
             {
                 buttonContainer.SetActive(false);
                 statContainer.SetActive(true);
-            }
+
+				if (Stats.current.scores.Count > 0)
+				{
+					textStats[0].text = Stats.current.scores.ToArray().Max().ToString("D3");
+					textStats[1].text = (Stats.current.scores.ToArray().Sum() / Stats.current.scores.Count).ToString("D3");
+					int maxTimeSec = ((int)(Stats.current.gameLengths.ToArray().Max()));
+					int maxTimeMin = maxTimeSec / 60;
+					textStats[2].text = maxTimeMin.ToString("D2") + ":" + (maxTimeSec%60).ToString("D2");
+					int avgTimeSec = ((int)(Stats.current.gameLengths.ToArray().Sum() / Stats.current.gameLengths.Count));
+					int avgTimeMin = avgTimeSec / 60;
+					textStats[3].text = avgTimeMin.ToString("D2") + ":" + (avgTimeSec % 60).ToString("D2");
+				} else
+				{
+					textStats[0].text = "000";
+					textStats[1].text = "000";
+					textStats[2].text = "00:00";
+					textStats[3].text = "00:00";
+				}
+			}
         }
         else
         {
@@ -112,4 +132,22 @@ public class CanvasController : MonoBehaviour {
     {
         return currentState;
     }
+
+	public void onBack()
+	{
+		setState(CanvasState.MAIN);
+	}
+
+	[DllImport("__Internal")]
+	private static extern void SyncData();
+
+	public void OnResetStats()
+	{
+		Stats.current.Reset();
+		Storage.Save(Stats.current);
+		if (Application.platform == RuntimePlatform.WebGLPlayer)
+		{
+			SyncData();
+		}
+	}
 }

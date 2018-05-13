@@ -16,7 +16,8 @@ public class Stats {
 
     public void Reset()
     {
-        scores = new List<int>();
-        gameLengths = new List<float>();
+		scores.Clear();
+		gameLengths.Clear();
+		Debug.Log("called reset");
     }
 }
