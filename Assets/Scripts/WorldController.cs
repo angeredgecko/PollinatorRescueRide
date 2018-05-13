@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class WorldController : MonoBehaviour {
 
-    Canvas c;
-    GameObject panel;
+    public static WorldController wc;
+
     BallController b;
     BackgroundController backC;
     GameObject worldObject;
@@ -38,9 +38,8 @@ public class WorldController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        wc = this;
         //c = GameObject.Find("Canvas").GetComponent<Canvas>();
-        panel = GameObject.Find("Panel");
-        GameData.panel = panel;
         b = GameObject.Find("Ball").GetComponent<BallController>();
         backC = GameObject.Find("Plane").GetComponent<BackgroundController>();
 
@@ -67,7 +66,21 @@ public class WorldController : MonoBehaviour {
         {
             GameData.timePlaying = Time.time - beginTime;
             GameData.scrollSpeed = GameData.maxScrollSpeed / (1f + ((GameData.maxScrollSpeed / GameData.defaultScrollSpeed) - 1) * (Mathf.Exp(-.023f * (GameData.timePlaying))));
-        } else
+
+            if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameData.panel.GetComponent<PanelAnim>().playPopup();
+                GameData.scoreAnim.playBig();
+                GameData.setState(GameData.GameState.PAUSED);
+            }
+        } else if (GameData.GetState() == GameData.GameState.PAUSED)
+        {
+            if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameData.setState(GameData.GameState.PLAYING);
+            }
+        }
+        else
         {
             beginTime = Time.time;
         }
@@ -77,19 +90,6 @@ public class WorldController : MonoBehaviour {
         //GameData.scrollSpeed = GameData.defaultScrollSpeed + (GameData.distTraveled / 250f);
         //Debug.Log(GameData.scrollSpeed);
 	}
-
-    public void OnPlay()
-    {
-        GameData.setState(GameData.GameState.PLAYING);
-        panel.SetActive(false);
-        ResetGame();
-        audio.Play();
-    }
-
-    public void onTutorial()
-    {
-
-    }
 
     public void ResetGame()
     {

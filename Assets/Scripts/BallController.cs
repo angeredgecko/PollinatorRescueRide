@@ -24,8 +24,9 @@ public class BallController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (GameData.GetState() == GameData.GameState.MENU)
+        if (GameData.GetState() == GameData.GameState.MENU || GameData.GetState() == GameData.GameState.PAUSED)
         {
+            rb.velocity = new Vector2(0, 0); 
             rb.isKinematic = true;
         }
         else if (GameData.GetState() == GameData.GameState.PLAYING)
@@ -55,8 +56,6 @@ public class BallController : MonoBehaviour {
         } else if (GameData.GetState() == GameData.GameState.DEAD)
         {
             GameData.setState(GameData.GameState.MENU);
-            GameData.panel.SetActive(true);
-            GameData.panel.GetComponent<PanelAnim>().playPopup();
             GameData.scoreAnim.playBig();
         }
 		//test
@@ -103,7 +102,10 @@ public class BallController : MonoBehaviour {
         Stats.current.gameLengths.Add(GameData.timePlaying);
 
         Storage.Save(Stats.current);
-        SyncData();
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            SyncData();
+        }
     }
 
     public void ResetValues()

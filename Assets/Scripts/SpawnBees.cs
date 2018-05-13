@@ -33,7 +33,11 @@ public class SpawnBees : MonoBehaviour {
                 bees.Add(bee);
             }
         }
-	}
+        else if (GameData.GetState() == GameData.GameState.PAUSED)
+        {
+            lastTime += Time.deltaTime;
+        }
+    }
     public void ResetValues()
     {
         randTime = Random.Range(-maxRandTime / 2, maxRandTime / 2);

@@ -54,7 +54,11 @@ public class SpawnTrees : MonoBehaviour {
                 tree.transform.position = new Vector3(tree.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (treeSpeed / 3f)), tree.transform.position.y, depth);
             }
         }
-	}
+        else if (GameData.GetState() == GameData.GameState.PAUSED)
+        {
+            lastTreeTime += Time.deltaTime;
+        }
+    }
     public void ResetValues()
     {
         hasSpawned = false;

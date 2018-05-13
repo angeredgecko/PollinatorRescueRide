@@ -35,6 +35,10 @@ public class SpawnPesticide : MonoBehaviour {
                 pesticides.Add(pesticide);
             }
         }
+        else if (GameData.GetState() == GameData.GameState.PAUSED)
+        {
+            lastTime += Time.deltaTime;
+        }
     }
 
     public void ResetValues()

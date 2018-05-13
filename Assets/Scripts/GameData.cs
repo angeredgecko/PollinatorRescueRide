@@ -10,7 +10,8 @@ public static class GameData {
 		STARTING,
 		PLAYING,
 		DYING,
-		DEAD
+		DEAD,
+        PAUSED
 	}
 
     public static GameObject panel;

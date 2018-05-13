@@ -52,6 +52,10 @@ public class SpawnClouds : MonoBehaviour {
                 cloud.transform.position = new Vector3(cloud.transform.position.x - GameData.scrollSpeed * (Time.deltaTime * (cloudSpeed / 3f)), .15f * Mathf.Sin(1.4f * clouds[cloud][0]) + yPos + clouds[cloud][1], depth);
             }
         }
+        else if (GameData.GetState() == GameData.GameState.PAUSED)
+        {
+            lastcloudTime += Time.deltaTime;
+        }
     }
     public void ResetValues()
     {

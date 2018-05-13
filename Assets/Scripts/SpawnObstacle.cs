@@ -37,6 +37,10 @@ public class SpawnObstacle : MonoBehaviour {
                 obstacles.Add(obstacle);
             }
         }
+        else if (GameData.GetState() == GameData.GameState.PAUSED)
+        {
+            lastTime += Time.deltaTime;
+        }
     }
 
     public void ResetValues()

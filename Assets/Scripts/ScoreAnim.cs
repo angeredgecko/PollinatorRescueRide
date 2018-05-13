@@ -24,7 +24,7 @@ public class ScoreAnim : MonoBehaviour {
 	void Update () {
         transform.localScale = defaultScale * scale;
         string score = "";
-        if (GameData.GetState() == GameData.GameState.MENU)
+        if ((GameData.GetState() == GameData.GameState.MENU || GameData.GetState() == GameData.GameState.PAUSED) && CanvasController.getState() == CanvasController.CanvasState.MAIN)
         {
             score = GameData.lastScore.ToString("D3");
             score = Stats.current.scores.ToArray().Max().ToString("D3");
