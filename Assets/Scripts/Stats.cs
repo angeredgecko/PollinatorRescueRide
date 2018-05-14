@@ -10,6 +10,8 @@ public class Stats {
 
     public Stats()
     {
+        scores = new List<int>();
+        gameLengths = new List<float>();
         Reset(); 
         current = this;
     }

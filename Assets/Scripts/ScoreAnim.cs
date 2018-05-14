@@ -27,6 +27,10 @@ public class ScoreAnim : MonoBehaviour {
         if ((GameData.GetState() == GameData.GameState.MENU || GameData.GetState() == GameData.GameState.PAUSED) && CanvasController.getState() == CanvasController.CanvasState.MAIN)
         {
             score = GameData.lastScore.ToString("D3");
+            if (GameData.GetState() == GameData.GameState.PAUSED)
+            {
+                score = GameData.hitInsects.ToString("D3");
+            }
             text.transform.localPosition = new Vector3(text.transform.localPosition.x, 115f, 0);
         }
         else
