@@ -135,8 +135,8 @@ public class WorldController : MonoBehaviour {
         foreach (SpawnObstacle obstacle in obstacles)
         {
             foreach (GameObject thing in obstacle.obstacles)
-            {
-                Destroy(thing);
+			{
+				Destroy(thing);
             }
             obstacle.obstacles.Clear();
             obstacle.ResetValues();
